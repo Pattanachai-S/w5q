@@ -12,7 +12,7 @@
     <canvas id="myCanvas" width="480" height="320"></canvas>
         <script>
           //Class การทำงานของเกม
-            class Main{
+            class World{
                 constructor(){
                     this.canvas = document.getElementById("myCanvas");
                     this.ctx = this.canvas.getContext("2d");  
@@ -41,7 +41,7 @@
                     }
 
                     this.paddle.bricks = this.bricks; // ส่ง object birck ให้ paddle
-                    this.ball.game = this; // ส่ง object main ให้ ball
+                    this.ball.game = this; // ส่ง object World ให้ ball
                     this.ball.paddle = this.paddle; // ส่ง object paddle ให้ ball
                     this.paddle.ip = this.ip;  // ส่ง object InputProcessor ให้ paddle
                     this.ip.paddle = this.paddle;  // ส่ง object paddle ให้  InputProcessor
@@ -224,7 +224,7 @@
                 // ขยับไม้ตีตามการกดลูกศร ซ้าย-ขวา
                 checkInput(e){
                   if (e.key == "ArrowRight") { 
-                    game.paddle.moveRight();  // game is main class
+                    game.paddle.moveRight();  // game is World class
                   }
                 //หากมีการกดลูกศร ซ้าย ให้ไม้ตีไปทางซ้าย
                   else if(e.key == "ArrowLeft") {
@@ -233,7 +233,7 @@
                 }
             }
             
-            var game = new Main(); //ประกาศ object เพื่อเตรียมเล่นเกม
+            var game = new World(); //ประกาศ object เพื่อเตรียมเล่นเกม
             function Run(){ //สร้างฟังก์ชั่นเพื่อให้เรียกใช้ตัวเกมผ่านฟังก์ชั่นนี้ห
                 game.draw();
             }
