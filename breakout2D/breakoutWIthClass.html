@@ -16,12 +16,19 @@
                 constructor(){
                     this.canvas = document.getElementById("myCanvas");
                     this.ctx = this.canvas.getContext("2d");  
-                    var obj_Ball = new Ball( this.canvas.width/2 , this.canvas.height-30 , 2 , -2 ,10);
-                    this.ball = obj_Ball ;
+                    //var obj_Ball = new Ball( this.canvas.width/2 , this.canvas.height-30 , 2 , -2 ,10);
+                    //this.ball = obj_Ball ;
                     var obj_Paddle = new Paddle();
                     this.paddle = obj_Paddle;
                     var input= new InputProcessor();
                     this.ip = input;
+                    
+                    this.balls = []
+                    for (var i = 0; i < 3; i++) {
+                    	var obj_Ball = new Ball( this.canvas.width/2 , this.canvas.height-30 , 2 , -2 ,10);
+                    	this.balls.push(obj_Ball);
+                    }
+                    
                     // ตั้งค่ารายละเอียดของกำแพงทั้งหมด
                     this.brickRowCount = 5;
                     this.brickColumnCount = 3;
@@ -41,10 +48,15 @@
                     }
 
                     this.paddle.bricks = this.bricks; // ส่ง object birck ให้ paddle
-                    this.ball.game = this; // ส่ง object World ให้ ball
-                    this.ball.paddle = this.paddle; // ส่ง object paddle ให้ ball
                     this.paddle.ip = this.ip;  // ส่ง object InputProcessor ให้ paddle
                     this.ip.paddle = this.paddle;  // ส่ง object paddle ให้  InputProcessor
+                    
+                    for (var ball of this.balls){
+                    	ball.game = this;  // ส่ง object World ให้ ball
+                    	ball.paddle = this.paddle;  // ส่ง object paddle ให้ ball
+                    }
+                    // this.ball.game = this; // ส่ง object World ให้ ball
+                    // this.ball.paddle = this.paddle; // ส่ง object paddle ให้ ball
                 }
                 //สร้างกำแพงและวาดกำแพง
                 drawBricks() {
@@ -67,13 +79,15 @@
                 //ใช้ในการเริ่มเกม
                 draw(){   
                     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);        
-                    this.ball.drawBall() ;
-                    this.ball.moveBall() ;
                     this.paddle.drawPaddle();
                     this.paddle.drawScore();
                     this.paddle.drawLives();
                     this.drawBricks();
-                    this.ball.collisionDetection()
+                    for (var ball of this.balls){
+		            ball.drawBall() ;
+		            ball.moveBall() ;
+		            ball.collisionDetection()
+		    }
                 }
             }
             //Class เก็บข้อมูลลูกบอล ทิศทาง ขนาด ความเร็ว
