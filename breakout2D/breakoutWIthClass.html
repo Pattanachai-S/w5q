@@ -25,7 +25,7 @@
                     
                     this.balls = []
                     for (var i = 0; i < 3; i++) {
-                    	var obj_Ball = new Ball( this.canvas.width/2 , this.canvas.height-30 , 2 , -2 ,10);
+                    	var obj_Ball = new Ball( this.canvas.width/2 , this.canvas.height-30 , Math.random() , -2 ,10);  // ball is (x.y.dx.dy.rad)
                     	this.balls.push(obj_Ball);
                     }
                     
